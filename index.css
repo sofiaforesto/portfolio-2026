@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles from previous HTML style tag */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+.material-symbols-outlined { 
+  font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; 
+}
+
+.symbol-filled { 
+  font-variation-settings: 'FILL' 1; 
+}

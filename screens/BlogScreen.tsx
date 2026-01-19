@@ -139,7 +139,7 @@ export const BlogScreen: React.FC = () => {
         <div className="flex items-end justify-between mb-6">
           <div>
             <span className="text-xs font-bold text-emerald-600 uppercase tracking-widest mb-1 block">Selections</span>
-            <h3 class="text-xl font-bold text-gray-900">Curated Reads</h3>
+            <h3 className="text-xl font-bold text-gray-900">Curated Reads</h3>
           </div>
           <div className="p-2 rounded-full bg-gray-100">
             <span className="material-symbols-outlined text-gray-500 text-[20px]">library_books</span>
