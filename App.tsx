@@ -10,7 +10,7 @@ export default function App() {
     return (
       <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-6 font-display">
         <h1 className="text-4xl text-white font-bold mb-2 tracking-tight">Elite QA Suite</h1>
-        <p className="text-gray-400 mb-10 text-center max-w-md">Select an interface below to explore the functional MVP implementations.</p>
+        <p className="text-gray-400 mb-10 text-center max-w-md">Selecione uma interface abaixo para explorar as implementações MVP funcionais.</p>
         
         <div className="grid gap-4 w-full max-w-sm">
           <button 
@@ -22,7 +22,7 @@ export default function App() {
             </div>
             <div className="text-left">
               <h3 className="font-bold text-gray-900">Elite QA Insights</h3>
-              <p className="text-xs text-gray-500">Blog & Editorial Interface</p>
+              <p className="text-xs text-gray-500">Interface de Blog & Editorial</p>
             </div>
             <span className="material-symbols-outlined ml-auto text-gray-300 group-hover:text-emerald-600">arrow_forward</span>
           </button>
@@ -35,8 +35,8 @@ export default function App() {
                <span className="material-symbols-outlined">design_services</span>
             </div>
             <div className="text-left">
-              <h3 className="font-bold text-gray-900">QA Services</h3>
-              <p className="text-xs text-gray-500">Pricing & Consultation Form</p>
+              <h3 className="font-bold text-gray-900">Serviços QA</h3>
+              <p className="text-xs text-gray-500">Preços & Formulário de Consultoria</p>
             </div>
             <span className="material-symbols-outlined ml-auto text-gray-300 group-hover:text-emerald-600">arrow_forward</span>
           </button>
@@ -50,7 +50,7 @@ export default function App() {
             </div>
             <div className="text-left">
               <h3 className="font-bold text-white">Alex Chen</h3>
-              <p className="text-xs text-gray-500">Interactive Portfolio (Dark)</p>
+              <p className="text-xs text-gray-500">Portfólio Interativo (Dark)</p>
             </div>
             <span className="material-symbols-outlined ml-auto text-gray-600 group-hover:text-white">arrow_forward</span>
           </button>
@@ -69,7 +69,7 @@ export default function App() {
       <button 
         onClick={() => setCurrentView('menu')}
         className="fixed top-24 left-4 z-[100] bg-black/80 text-white p-2 rounded-full shadow-lg opacity-30 hover:opacity-100 transition-opacity"
-        title="Back to Menu"
+        title="Voltar ao Menu"
       >
         <span className="material-symbols-outlined text-sm">grid_view</span>
       </button>

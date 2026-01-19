@@ -4,28 +4,28 @@ import { Article } from '../types';
 const articles: Article[] = [
   {
     id: '1',
-    category: 'Automation',
+    category: 'Automação',
     color: 'bg-emerald-600',
-    date: 'Oct 12, 2024',
-    readTime: '4 min read',
-    title: 'Implementing Cypress for E2E Testing Strategies',
-    excerpt: 'A comprehensive guide to setting up Cypress in a React environment, handling flaky tests, and...',
+    date: '12 Out, 2024',
+    readTime: '4 min leitura',
+    title: 'Implementando Cypress para Estratégias de Teste E2E',
+    excerpt: 'Um guia completo para configurar o Cypress em um ambiente React, lidando com testes instáveis e...',
     image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=1000'
   },
   {
     id: '2',
-    category: 'Methodology',
+    category: 'Metodologia',
     color: 'bg-orange-500',
-    date: 'Sep 28, 2024',
-    readTime: '6 min read',
-    title: 'The Art of Manual Exploratory Testing',
-    excerpt: "Why automation can't replace human intuition. Techniques to uncover edge cases that scripts miss.",
+    date: '28 Set, 2024',
+    readTime: '6 min leitura',
+    title: 'A Arte do Teste Exploratório Manual',
+    excerpt: "Por que a automação não substitui a intuição humana. Técnicas para descobrir casos extremos que scripts perdem.",
     image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=1000'
   }
 ];
 
 export const BlogScreen: React.FC = () => {
-  const [activeTab, setActiveTab] = useState('All');
+  const [activeTab, setActiveTab] = useState('Todos');
 
   return (
     <div className="min-h-screen bg-[#f8f9fa] font-display pb-24 text-gray-800">
@@ -56,7 +56,7 @@ export const BlogScreen: React.FC = () => {
           </div>
           <input 
             className="block w-full pl-11 pr-4 py-3.5 bg-white border-0 rounded-2xl text-gray-900 placeholder:text-gray-400 shadow-card focus:ring-1 focus:ring-emerald-600/20 focus:shadow-float transition-all duration-300 font-medium text-sm" 
-            placeholder="Search articles, topics..." 
+            placeholder="Buscar artigos, tópicos..." 
             type="text" 
           />
           <div className="absolute inset-y-0 right-0 flex items-center pr-2">
@@ -67,7 +67,7 @@ export const BlogScreen: React.FC = () => {
         </div>
 
         <div className="flex gap-3 overflow-x-auto no-scrollbar pb-2">
-          {['All', 'Automation', 'Manual', 'Agile', 'Security'].map((tab) => (
+          {['Todos', 'Automação', 'Manual', 'Ágil', 'Segurança'].map((tab) => (
             <button 
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -86,8 +86,8 @@ export const BlogScreen: React.FC = () => {
       {/* Articles List */}
       <div className="flex flex-col gap-8 px-6 pb-4">
         <div className="flex items-center justify-between border-b border-gray-200 pb-2">
-          <h3 className="text-lg font-bold text-gray-900 tracking-tight">Latest Stories</h3>
-          <button className="text-xs font-bold text-gray-400 hover:text-emerald-600 transition-colors uppercase tracking-wider">View All</button>
+          <h3 className="text-lg font-bold text-gray-900 tracking-tight">Últimas Histórias</h3>
+          <button className="text-xs font-bold text-gray-400 hover:text-emerald-600 transition-colors uppercase tracking-wider">Ver Tudo</button>
         </div>
 
         {articles.map((article) => (
@@ -120,7 +120,7 @@ export const BlogScreen: React.FC = () => {
               </p>
               <div className="pt-2 flex items-center justify-between">
                 <div className="flex items-center text-emerald-600 text-xs font-bold uppercase tracking-widest group cursor-pointer">
-                  Read Story
+                  Ler Artigo
                   <span className="material-symbols-outlined text-[16px] ml-1 group-hover:translate-x-1 transition-transform">arrow_right_alt</span>
                 </div>
                 <div className="flex gap-2">
@@ -138,8 +138,8 @@ export const BlogScreen: React.FC = () => {
       <div className="mt-4 px-6 mb-8">
         <div className="flex items-end justify-between mb-6">
           <div>
-            <span className="text-xs font-bold text-emerald-600 uppercase tracking-widest mb-1 block">Selections</span>
-            <h3 className="text-xl font-bold text-gray-900">Curated Reads</h3>
+            <span className="text-xs font-bold text-emerald-600 uppercase tracking-widest mb-1 block">Seleções</span>
+            <h3 className="text-xl font-bold text-gray-900">Leituras Curadas</h3>
           </div>
           <div className="p-2 rounded-full bg-gray-100">
             <span className="material-symbols-outlined text-gray-500 text-[20px]">library_books</span>
@@ -148,11 +148,11 @@ export const BlogScreen: React.FC = () => {
         <div className="flex flex-col gap-4">
           <a href="#" className="group block bg-white rounded-xl p-5 shadow-card border border-gray-100 hover:border-emerald-600/30 transition-all">
             <div className="flex justify-between items-start mb-2">
-              <span className="text-[10px] font-bold uppercase tracking-wide text-gray-400">Industry Report</span>
+              <span className="text-[10px] font-bold uppercase tracking-wide text-gray-400">Relatório do Setor</span>
               <span className="material-symbols-outlined text-[16px] text-gray-300 group-hover:text-emerald-600 transition-colors">open_in_new</span>
             </div>
-            <h4 className="text-base font-bold text-gray-900 mb-1 group-hover:text-emerald-600 transition-colors">State of Testing Report 2024</h4>
-            <p className="text-xs text-gray-500 line-clamp-1">Key findings on the shift-left movement and AI.</p>
+            <h4 className="text-base font-bold text-gray-900 mb-1 group-hover:text-emerald-600 transition-colors">Estado dos Testes 2024</h4>
+            <p className="text-xs text-gray-500 line-clamp-1">Principais descobertas sobre shift-left e IA.</p>
           </a>
         </div>
       </div>
@@ -162,16 +162,16 @@ export const BlogScreen: React.FC = () => {
         <div className="flex justify-around items-center h-20 px-4">
           <a href="#" className="flex flex-col items-center gap-1 p-2 text-gray-400 hover:text-gray-900 transition-colors group">
             <span className="material-symbols-outlined text-[24px] group-hover:-translate-y-1 transition-transform duration-300">home</span>
-            <span className="text-[9px] font-bold tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity absolute bottom-2">Home</span>
+            <span className="text-[9px] font-bold tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity absolute bottom-2">Início</span>
           </a>
           <a href="#" className="flex flex-col items-center gap-1 p-2 text-emerald-600 relative group">
              <div className="absolute -top-3 w-8 h-1 bg-emerald-500 rounded-b-full shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
             <span className="material-symbols-outlined text-[24px] group-hover:-translate-y-1 transition-transform duration-300">article</span>
-            <span className="text-[9px] font-bold tracking-wider uppercase absolute bottom-2">Articles</span>
+            <span className="text-[9px] font-bold tracking-wider uppercase absolute bottom-2">Artigos</span>
           </a>
           <a href="#" className="flex flex-col items-center gap-1 p-2 text-gray-400 hover:text-gray-900 transition-colors group">
             <span className="material-symbols-outlined text-[24px] group-hover:-translate-y-1 transition-transform duration-300">mail</span>
-            <span className="text-[9px] font-bold tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity absolute bottom-2">Contact</span>
+            <span className="text-[9px] font-bold tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity absolute bottom-2">Contato</span>
           </a>
         </div>
       </nav>
