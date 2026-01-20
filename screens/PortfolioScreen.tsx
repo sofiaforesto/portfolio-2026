@@ -1,144 +1,381 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export const PortfolioScreen: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<'manual' | 'automated' | 'stack'>('manual');
+
   return (
-    <div className="min-h-screen bg-dark-bg text-gray-300 font-display relative overflow-hidden pb-32">
-        {/* Background Ambient Effect */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-emerald-500/10 via-transparent to-transparent opacity-40 pointer-events-none"></div>
-        
-        {/* Header */}
-        <div className="relative flex items-center justify-between px-8 pt-8 pb-4 animate-fade-in">
-            <span className="text-[10px] font-semibold tracking-[0.2em] text-gray-500 uppercase font-display">Portfólio v2.0</span>
-            <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
-                <div className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_rgba(52,211,153,0.8)]"></div>
-                <span className="text-[10px] font-medium text-emerald-200 uppercase tracking-wide">Disponível</span>
-            </div>
+    <div className="min-h-screen bg-gray-50 font-display pb-24">
+      {/* Header */}
+      <div className="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-30">
+        <div className="px-6 py-4 flex items-center justify-between">
+          <div className="size-10"></div>
+          <div className="text-center">
+            <p className="text-xs font-bold tracking-widest uppercase text-[#2F4F2F] mb-1">Demonstrações</p>
+            <h1 className="text-xl font-bold text-gray-900">Testes Práticos</h1>
+          </div>
+          <div className="size-10"></div>
         </div>
+      </div>
 
-        {/* Profile Hero */}
-        <div className="relative px-8 py-6 animate-slide-up">
-            <div className="flex flex-col items-center text-center">
-                <div className="relative group cursor-pointer mb-6">
-                    <div className="absolute -inset-4 rounded-full border border-white/5 scale-90 opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-700 ease-out"></div>
-                    <div className="relative h-28 w-28 rounded-full p-1 border border-white/10 ring-1 ring-white/5 bg-dark-bg shadow-2xl">
-                        <img 
-                            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300&h=300" 
-                            alt="Alex Chen" 
-                            className="h-full w-full rounded-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
-                        />
-                    </div>
-                </div>
-                <h1 className="text-4xl font-serif font-medium text-white tracking-tight mb-2">Alex Chen</h1>
-                <div className="flex flex-col items-center gap-2">
-                    <span className="text-sm font-light text-emerald-200/80 tracking-widest uppercase">Engenheiro QA Sênior</span>
-                    <div className="h-px w-8 bg-white/10 my-2"></div>
-                    <p className="text-xs text-gray-500 font-medium tracking-wide">SFO • REMOTO</p>
-                </div>
-            </div>
+      {/* Tab Navigation */}
+      <div className="bg-white border-b border-gray-100">
+        <div className="px-6 py-4">
+          <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg">
+            <button
+              onClick={() => setActiveTab('manual')}
+              className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
+                activeTab === 'manual'
+                  ? 'bg-[#2F4F2F] text-white'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              Testes Manuais
+            </button>
+            <button
+              onClick={() => setActiveTab('automated')}
+              className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
+                activeTab === 'automated'
+                  ? 'bg-[#2F4F2F] text-white'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              Automação
+            </button>
+            <button
+              onClick={() => setActiveTab('stack')}
+              className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
+                activeTab === 'stack'
+                  ? 'bg-[#2F4F2F] text-white'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              Stack de Testes
+            </button>
+          </div>
         </div>
+      </div>
 
-        {/* Stats Grid */}
-        <div className="px-6 py-4 animate-slide-up" style={{animationDelay: '0.1s'}}>
-            <div className="grid grid-cols-3 gap-4">
+      {/* Content */}
+      <div className="px-6 py-6">
+        {activeTab === 'manual' && (
+          <div className="space-y-6">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">Testes Manuais</h2>
+              <p className="text-gray-600">Metodologia estruturada para garantia da qualidade</p>
+            </div>
+
+            {/* Test Case Example */}
+            <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold text-gray-900">Caso de Teste: Login</h3>
+                <span className="px-3 py-1 bg-green-100 text-green-800 text-xs font-medium rounded-full">
+                  Aprovado
+                </span>
+              </div>
+              <div className="space-y-3">
+                <div>
+                  <span className="font-medium text-gray-700">Pré-condições:</span>
+                  <p className="text-gray-600 text-sm mt-1">Usuário registrado no sistema</p>
+                </div>
+                <div>
+                  <span className="font-medium text-gray-700">Passos:</span>
+                  <ol className="text-gray-600 text-sm mt-1 list-decimal list-inside space-y-1">
+                    <li>Acessar página de login</li>
+                    <li>Inserir e-mail válido</li>
+                    <li>Inserir senha correta</li>
+                    <li>Clicar em "Entrar"</li>
+                  </ol>
+                </div>
+                <div>
+                  <span className="font-medium text-gray-700">Resultado esperado:</span>
+                  <p className="text-gray-600 text-sm mt-1">Redirecionamento para dashboard</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Checklist Example */}
+            <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Checklist: Formulário de Cadastro</h3>
+              <div className="space-y-3">
                 {[
-                    { val: '8+', label: 'Anos Exp' },
-                    { val: '99%', label: 'Cobertura' },
-                    { val: '40+', label: 'Projetos' }
-                ].map((stat, idx) => (
-                    <div key={idx} className="flex flex-col items-center justify-center p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md relative overflow-hidden group hover:bg-white/10 transition-colors duration-300">
-                        <span className="text-2xl font-serif text-white group-hover:scale-110 transition-transform duration-300">{stat.val}</span>
-                        <span className="text-[9px] text-gray-500 uppercase tracking-widest text-center mt-2 border-t border-white/5 pt-2 w-full">{stat.label}</span>
+                  { item: 'Campos obrigatórios marcados', status: 'pass' },
+                  { item: 'Validação de e-mail', status: 'pass' },
+                  { item: 'Confirmação de senha', status: 'pass' },
+                  { item: 'Mensagens de erro claras', status: 'pass' },
+                  { item: 'Responsividade mobile', status: 'pass' }
+                ].map((check, idx) => (
+                  <div key={idx} className="flex items-center space-x-3">
+                    <div className={`w-5 h-5 rounded-full flex items-center justify-center ${
+                      check.status === 'pass' ? 'bg-green-100' : 'bg-red-100'
+                    }`}>
+                      <span className={`material-symbols-outlined text-sm ${
+                        check.status === 'pass' ? 'text-green-600' : 'text-red-600'
+                      }`}>
+                        {check.status === 'pass' ? 'check' : 'close'}
+                      </span>
                     </div>
+                    <span className="text-gray-700">{check.item}</span>
+                  </div>
                 ))}
+              </div>
             </div>
-        </div>
 
-        {/* Philosophy Card */}
-        <div className="px-6 py-4 animate-slide-up" style={{animationDelay: '0.2s'}}>
-            <div className="relative p-8 rounded-3xl bg-gradient-to-br from-white/5 via-transparent to-white/5 border border-white/10 backdrop-blur-sm overflow-hidden">
-                <div className="absolute top-0 right-0 p-6 opacity-20">
-                    <span className="material-symbols-outlined text-6xl text-emerald-500 font-serif">format_quote</span>
+            {/* Bug Report Example */}
+            <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold text-gray-900">Relatório de Bug</h3>
+                <span className="px-3 py-1 bg-red-100 text-red-800 text-xs font-medium rounded-full">
+                  Crítico
+                </span>
+              </div>
+              <div className="space-y-3">
+                <div>
+                  <span className="font-medium text-gray-700">Título:</span>
+                  <p className="text-gray-600 text-sm mt-1">Botão de salvar não funciona no Firefox</p>
                 </div>
-                <h2 className="text-lg font-serif italic text-white mb-4 relative z-10">Filosofia</h2>
-                <p className="text-gray-400 text-sm font-light leading-7 relative z-10">
-                    Obcecado com entrega zero defeitos. Unindo a lacuna entre <span className="text-white font-normal underline decoration-emerald-500/50 decoration-1 underline-offset-4">velocidade</span> e <span className="text-white font-normal underline decoration-emerald-500/50 decoration-1 underline-offset-4">confiabilidade</span> através de frameworks automatizados.
-                </p>
-            </div>
-        </div>
-
-        {/* Navigation Grid */}
-        <div className="flex-1 px-6 py-4 animate-slide-up" style={{animationDelay: '0.3s'}}>
-            <div className="flex items-end justify-between mb-6 border-b border-white/5 pb-2">
-                <h3 className="text-white font-serif text-2xl">Explorar</h3>
-                <button className="text-[10px] text-emerald-200/80 uppercase tracking-widest hover:text-white transition-colors pb-1">Ver Arquivo</button>
-            </div>
-            
-            <div className="grid grid-cols-2 gap-4 mb-4">
-                <button className="flex flex-col p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-emerald-500/30 hover:bg-white/10 transition-all duration-300 text-left group h-full relative overflow-hidden">
-                    <div className="absolute -right-4 -top-4 bg-emerald-500/10 w-16 h-16 rounded-full blur-xl group-hover:bg-emerald-500/20 transition-all"></div>
-                    <div className="h-10 w-10 rounded-full border border-white/10 flex items-center justify-center text-emerald-200 mb-4 group-hover:scale-110 transition-transform bg-dark-surface/50">
-                        <span className="material-symbols-outlined font-light text-[20px]">terminal</span>
-                    </div>
-                    <h4 className="text-white font-serif text-lg mb-2">Artigos</h4>
-                    <p className="text-xs text-gray-500 font-light leading-relaxed">Insights sobre automação & Cypress.</p>
-                </button>
-                <button className="flex flex-col p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-emerald-500/30 hover:bg-white/10 transition-all duration-300 text-left group h-full relative overflow-hidden">
-                    <div className="absolute -right-4 -top-4 bg-emerald-500/10 w-16 h-16 rounded-full blur-xl group-hover:bg-emerald-500/20 transition-all"></div>
-                    <div className="h-10 w-10 rounded-full border border-white/10 flex items-center justify-center text-emerald-200 mb-4 group-hover:scale-110 transition-transform bg-dark-surface/50">
-                        <span className="material-symbols-outlined font-light text-[20px]">bug_report</span>
-                    </div>
-                    <h4 className="text-white font-serif text-lg mb-2">Trabalhos</h4>
-                    <p className="text-xs text-gray-500 font-light leading-relaxed">Estudos de caso e caça a bugs.</p>
-                </button>
-            </div>
-        </div>
-
-        {/* Featured Work */}
-        <div className="px-6 pb-28 pt-4 animate-slide-up" style={{animationDelay: '0.4s'}}>
-            <div className="flex items-center gap-3 mb-4">
-                <div className="h-px bg-white/10 flex-1"></div>
-                <h3 className="text-gray-400 text-xs uppercase tracking-widest font-medium">Destaque</h3>
-                <div className="h-px bg-white/10 flex-1"></div>
-            </div>
-            <div className="w-full h-56 rounded-2xl relative overflow-hidden group cursor-pointer border border-white/5 shadow-2xl">
-                <img 
-                    src="https://images.unsplash.com/photo-1642543492481-44e81e3914a7?auto=format&fit=crop&q=80&w=1000" 
-                    alt="Gráfico" 
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-60"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark-bg via-dark-bg/60 to-transparent"></div>
-                <div className="absolute bottom-0 left-0 p-6 w-full">
-                    <div className="flex items-center gap-3 mb-3">
-                        <span className="px-2 py-1 rounded border border-white/20 bg-white/5 backdrop-blur-md text-emerald-300 text-[9px] font-bold uppercase tracking-widest">Fintech</span>
-                        <span className="text-[10px] text-gray-400 font-serif italic">2 min leitura</span>
-                    </div>
-                    <h4 className="text-white font-serif text-xl leading-tight">Reduzindo Tempo de Regressão em 60%</h4>
+                <div>
+                  <span className="font-medium text-gray-700">Passos para reproduzir:</span>
+                  <ol className="text-gray-600 text-sm mt-1 list-decimal list-inside space-y-1">
+                    <li>Abrir formulário em Firefox</li>
+                    <li>Preencher todos os campos</li>
+                    <li>Clicar em "Salvar"</li>
+                  </ol>
                 </div>
-            </div>
-        </div>
-
-        {/* Dock Nav */}
-        <div className="fixed bottom-6 left-0 right-0 z-50 px-4 flex justify-center">
-            <div className="w-full max-w-[320px] rounded-full bg-[#1c1c1e]/80 backdrop-blur-xl border border-white/10 shadow-2xl shadow-black/50">
-                <div className="flex justify-between items-center px-6 py-4">
-                    <button className="group flex flex-col items-center gap-1 text-emerald-500">
-                        <span className="material-symbols-outlined symbol-filled text-[22px] group-hover:scale-110 transition-transform">grid_view</span>
-                    </button>
-                    <button className="group flex flex-col items-center gap-1 text-gray-500 hover:text-white transition-colors">
-                        <span className="material-symbols-outlined font-light text-[22px] group-hover:scale-110 transition-transform">folder_open</span>
-                    </button>
-                    <button className="relative -mt-8 bg-emerald-600 hover:bg-emerald-500 text-white rounded-full h-14 w-14 flex items-center justify-center shadow-glow transition-all active:scale-95 border-4 border-dark-bg">
-                        <span className="material-symbols-outlined text-2xl">mail</span>
-                    </button>
-                    <button className="group flex flex-col items-center gap-1 text-gray-500 hover:text-white transition-colors">
-                        <span className="material-symbols-outlined font-light text-[22px] group-hover:scale-110 transition-transform">design_services</span>
-                    </button>
-                    <button className="group flex flex-col items-center gap-1 text-gray-500 hover:text-white transition-colors">
-                        <span className="material-symbols-outlined font-light text-[22px] group-hover:scale-110 transition-transform">person</span>
-                    </button>
+                <div>
+                  <span className="font-medium text-gray-700">Resultado atual:</span>
+                  <p className="text-gray-600 text-sm mt-1">Nada acontece - sem feedback</p>
                 </div>
+                <div>
+                  <span className="font-medium text-gray-700">Ambiente:</span>
+                  <p className="text-gray-600 text-sm mt-1">Firefox 115.0, Windows 11</p>
+                </div>
+              </div>
             </div>
-        </div>
+          </div>
+        )}
+
+        {activeTab === 'automated' && (
+          <div className="space-y-6">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">Testes Automatizados</h2>
+              <p className="text-gray-600">Frameworks e ferramentas para eficiência e cobertura</p>
+            </div>
+
+            {/* Cypress Example */}
+            <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                  <span className="text-green-600 font-bold">Cy</span>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">Cypress - Testes E2E</h3>
+                  <p className="text-gray-600 text-sm">Framework moderno para testes end-to-end</p>
+                </div>
+              </div>
+              <div className="bg-gray-50 rounded p-4 font-mono text-sm text-gray-800 mb-4">
+                <pre>{`describe('Página de Login', () => {
+  it('deve fazer login com credenciais válidas', () => {
+    cy.visit('/login')
+    cy.get('[data-cy=email]').type('user@example.com')
+    cy.get('[data-cy=password]').type('password123')
+    cy.get('[data-cy=submit]').click()
+    cy.url().should('include', '/dashboard')
+  })
+})`}</pre>
+              </div>
+              <p className="text-gray-600 text-sm">
+                Objetivo: Garantir que o fluxo completo de autenticação funciona corretamente,
+                validando tanto o frontend quanto a integração com o backend.
+              </p>
+            </div>
+
+            {/* Selenium Example */}
+            <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                  <span className="text-orange-600 font-bold">Se</span>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">Selenium - WebDriver</h3>
+                  <p className="text-gray-600 text-sm">Automação cross-browser para aplicações web</p>
+                </div>
+              </div>
+              <div className="bg-gray-50 rounded p-4 font-mono text-sm text-gray-800 mb-4">
+                <pre>{`public class LoginTest {
+    @Test
+    public void testValidLogin() {
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://app.com/login");
+
+        WebElement email = driver.findElement(By.id("email"));
+        email.sendKeys("user@example.com");
+
+        WebElement password = driver.findElement(By.id("password"));
+        password.sendKeys("password123");
+
+        WebElement submit = driver.findElement(By.id("submit"));
+        submit.click();
+
+        Assert.assertTrue(driver.getCurrentUrl().contains("/dashboard"));
+        driver.quit();
+    }
+}`}</pre>
+              </div>
+              <p className="text-gray-600 text-sm">
+                Utilizado para testes de regressão em múltiplos navegadores,
+                garantindo compatibilidade cross-browser.
+              </p>
+            </div>
+
+            {/* API Testing Example */}
+            <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                  <span className="text-purple-600 font-bold">Po</span>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">Postman/Newman - APIs</h3>
+                  <p className="text-gray-600 text-sm">Testes automatizados de APIs REST</p>
+                </div>
+              </div>
+              <div className="bg-gray-50 rounded p-4 text-sm text-gray-800 mb-4">
+                <div className="space-y-2">
+                  <div><strong>Endpoint:</strong> POST /api/users</div>
+                  <div><strong>Request:</strong></div>
+                  <pre className="bg-white p-2 rounded text-xs">{`{
+  "name": "João Silva",
+  "email": "joao@example.com"
+}`}</pre>
+                  <div><strong>Assertions:</strong></div>
+                  <ul className="list-disc list-inside text-xs space-y-1">
+                    <li>Status code = 201</li>
+                    <li>Response contains user ID</li>
+                    <li>Email format validation</li>
+                  </ul>
+                </div>
+              </div>
+              <p className="text-gray-600 text-sm">
+                Testes de contrato de API, validação de responses e testes de performance.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'stack' && (
+          <div className="space-y-6">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">Stack de Testes</h2>
+              <p className="text-gray-600">Tecnologias e ferramentas especializadas</p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              {/* Testing Frameworks */}
+              <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">Frameworks de Teste</h3>
+                <div className="space-y-3">
+                  {[
+                    { name: 'Cypress', desc: 'Testes E2E modernos' },
+                    { name: 'Selenium WebDriver', desc: 'Automação cross-browser' },
+                    { name: 'JUnit/TestNG', desc: 'Testes unitários Java' },
+                    { name: 'Jest', desc: 'Testes JavaScript/React' },
+                    { name: 'Postman/Newman', desc: 'Testes de API' }
+                  ].map((tool, idx) => (
+                    <div key={idx} className="flex items-center space-x-3">
+                      <div className="w-8 h-8 bg-[#869878] rounded flex items-center justify-center">
+                        <span className="text-white text-xs font-bold">
+                          {tool.name.substring(0, 2).toUpperCase()}
+                        </span>
+                      </div>
+                      <div>
+                        <div className="font-medium text-gray-900 text-sm">{tool.name}</div>
+                        <div className="text-gray-500 text-xs">{tool.desc}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Testing Tools */}
+              <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">Ferramentas de QA</h3>
+                <div className="space-y-3">
+                  {[
+                    { name: 'Jira', desc: 'Gerenciamento de bugs' },
+                    { name: 'TestRail', desc: 'Planejamento de testes' },
+                    { name: 'BrowserStack', desc: 'Testes cross-browser' },
+                    { name: 'Charles Proxy', desc: 'Análise de tráfego' },
+                    { name: 'Figma', desc: 'Revisão de designs' }
+                  ].map((tool, idx) => (
+                    <div key={idx} className="flex items-center space-x-3">
+                      <div className="w-8 h-8 bg-green-100 rounded flex items-center justify-center">
+                        <span className="text-green-600 text-xs font-bold">
+                          {tool.name.substring(0, 2).toUpperCase()}
+                        </span>
+                      </div>
+                      <div>
+                        <div className="font-medium text-gray-900 text-sm">{tool.name}</div>
+                        <div className="text-gray-500 text-xs">{tool.desc}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* CI/CD */}
+              <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">CI/CD & DevOps</h3>
+                <div className="space-y-3">
+                  {[
+                    { name: 'GitHub Actions', desc: 'Pipelines automatizados' },
+                    { name: 'Jenkins', desc: 'Servidor de automação' },
+                    { name: 'Docker', desc: 'Containerização' },
+                    { name: 'AWS CodePipeline', desc: 'Deploy na nuvem' },
+                    { name: 'SonarQube', desc: 'Análise de código' }
+                  ].map((tool, idx) => (
+                    <div key={idx} className="flex items-center space-x-3">
+                      <div className="w-8 h-8 bg-purple-100 rounded flex items-center justify-center">
+                        <span className="text-purple-600 text-xs font-bold">
+                          {tool.name.substring(0, 2).toUpperCase()}
+                        </span>
+                      </div>
+                      <div>
+                        <div className="font-medium text-gray-900 text-sm">{tool.name}</div>
+                        <div className="text-gray-500 text-xs">{tool.desc}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Monitoring */}
+              <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">Monitoramento</h3>
+                <div className="space-y-3">
+                  {[
+                    { name: 'Sentry', desc: 'Rastreamento de erros' },
+                    { name: 'DataDog', desc: 'Monitoramento de performance' },
+                    { name: 'New Relic', desc: 'APM e observabilidade' },
+                    { name: 'Google Analytics', desc: 'Análise de uso' },
+                    { name: 'Hotjar', desc: 'Heatmaps e sessões' }
+                  ].map((tool, idx) => (
+                    <div key={idx} className="flex items-center space-x-3">
+                      <div className="w-8 h-8 bg-orange-100 rounded flex items-center justify-center">
+                        <span className="text-orange-600 text-xs font-bold">
+                          {tool.name.substring(0, 2).toUpperCase()}
+                        </span>
+                      </div>
+                      <div>
+                        <div className="font-medium text-gray-900 text-sm">{tool.name}</div>
+                        <div className="text-gray-500 text-xs">{tool.desc}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

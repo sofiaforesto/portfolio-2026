@@ -7,6 +7,7 @@ export interface Article {
   title: string;
   excerpt: string;
   image: string;
+  link?: string;
 }
 
 export interface ServiceTier {
