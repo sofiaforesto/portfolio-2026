@@ -46,7 +46,7 @@ export const HomeScreen: React.FC<{ onNavigate: (view: string) => void }> = ({ o
     if (!isHovered) {
       intervalRef.current = setInterval(() => {
         setCurrentIndex((prev) => (prev + 1) % duplicated.length);
-      }, 6000);
+      }, 6000) as unknown as number;
     } else {
       if (intervalRef.current) clearInterval(intervalRef.current);
     }
