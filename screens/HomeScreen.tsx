@@ -26,7 +26,7 @@ export const HomeScreen: React.FC<{ onNavigate: (view: string) => void }> = ({ o
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [slidesToShow, setSlidesToShow] = useState(1);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef<number | null>(null);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
 
