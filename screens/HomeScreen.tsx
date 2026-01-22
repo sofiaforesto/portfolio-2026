@@ -3,22 +3,10 @@ import React, { useState, useEffect, useRef } from 'react';
 export const HomeScreen: React.FC<{ onNavigate: (view: string) => void }> = ({ onNavigate }) => {
   const testimonials = [
     {
-      quote: "Sofia trouxe uma visão analítica incrível para nosso projeto. Sua atenção aos detalhes evitou bugs críticos antes do lançamento.",
-      name: "João Silva",
-      role: "Desenvolvedor Sênior",
-      initial: "JS"
-    },
-    {
-      quote: "Trabalhar com Sofia foi uma experiência excepcional. Sempre proativa, comunicativa e com foco em qualidade.",
-      name: "Maria Santos",
-      role: "Product Manager",
-      initial: "MS"
-    },
-    {
-      quote: "Sofia elevou o padrão de qualidade da nossa equipe. Seus testes manuais e automatizados são impecáveis.",
-      name: "Ana Costa",
-      role: "QA Lead",
-      initial: "AC"
+      quote: "A Sofia como profissional é muito proativa, entusiasta e muita curiosa cobre os detalhes dos entregáveis, muito prestativa, interessada e solícita. Foi um prazer trabalhar com ela!",
+      name: "Jorge",
+      role: "Desenvolvedor FullStack Pleno",
+      initial: "J"
     }
   ];
 
