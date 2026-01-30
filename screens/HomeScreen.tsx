@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Rocket, LayoutGrid, Lightbulb, CheckCircle2, ArrowRight } from 'lucide-react';
 
 export const HomeScreen: React.FC<{ onNavigate: (view: string) => void }> = ({ onNavigate }) => {
   const testimonials = [
@@ -171,64 +172,127 @@ export const HomeScreen: React.FC<{ onNavigate: (view: string) => void }> = ({ o
       </main>
 
       {/* Soluções Especializadas Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-5xl mx-auto px-6">
-          <h3 className="text-3xl font-bold text-center text-gray-900 mb-12">Soluções Especializadas</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <section className="py-20 bg-gray-50 text-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Cabeçalho da Seção */}
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-sm font-bold tracking-wider text-[#869878] uppercase mb-2">
+              Soluções Especializadas
+            </h2>
+            <h3 className="text-3xl md:text-4xl font-bold text-[#2F4F2F] mb-4">
+              Qualidade que gera resultado
+            </h3>
+            <p className="text-gray-600 text-lg">
+              Não importa o tamanho do seu projeto. Se você quer vender, escalar ou lançar,
+              precisa de confiança técnica. Escolha o seu perfil:
+            </p>
+          </div>
+
+          {/* Grid de Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Card 01 - Agências */}
-            <div className="bg-white p-8 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.05)] border border-gray-100">
-              <div className="flex items-center mb-4">
-                <span className="material-symbols-outlined text-4xl text-[#2F4F2F] mr-3">rocket_launch</span>
+            <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col h-full group">
+              <div className="w-14 h-14 bg-[#F0F4EF] rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Rocket className="w-8 h-8 text-[#2F4F2F]" />
               </div>
-              <h4 className="text-xl font-bold text-[#2F4F2F] mb-2">Agências de Lançamento e Infoprodutores</h4>
-              <p className="text-[#444444] font-bold mb-3">Sua página de captura está perdendo leads?</p>
-              <p className="text-[#444444] mb-6">Proteja seu investimento em tráfego pago garantindo que cada etapa do funil funcione perfeitamente.</p>
-              <ul className="space-y-3">
-                <li className="flex items-start">
-                  <span className="material-symbols-outlined text-[#2F4F2F] mr-2 text-lg">check_circle</span>
-                  <span className="text-[#444444] text-sm">Validação completa do fluxo de cadastro e checkout</span>
+              <h4 className="text-xl font-bold text-[#2F4F2F] mb-2">Agências & Infoprodutores</h4>
+              <p className="text-sm font-semibold text-[#869878] mb-4">Sua página de captura está perdendo leads?</p>
+              <p className="text-gray-600 mb-8 text-sm leading-relaxed flex-grow">
+                Proteja seu investimento em tráfego pago. Garanto que cada etapa do funil funcione perfeitamente para que você não deixe dinheiro na mesa.
+              </p>
+              <ul className="space-y-3 mb-8">
+                <li className="flex items-start text-sm text-gray-700">
+                  <CheckCircle2 className="w-5 h-5 text-[#869878] mr-3 flex-shrink-0 mt-0.5" />
+                  <span>Validação de fluxo de cadastro e checkout</span>
                 </li>
-                <li className="flex items-start">
-                  <span className="material-symbols-outlined text-[#2F4F2F] mr-2 text-lg">check_circle</span>
-                  <span className="text-[#444444] text-sm">Checklist rigoroso de tracking (GA4, GTM, Pixel)</span>
+                <li className="flex items-start text-sm text-gray-700">
+                  <CheckCircle2 className="w-5 h-5 text-[#869878] mr-3 flex-shrink-0 mt-0.5" />
+                  <span>Checklist de tracking (GA4, GTM, Pixel)</span>
                 </li>
-                <li className="flex items-start">
-                  <span className="material-symbols-outlined text-[#2F4F2F] mr-2 text-lg">check_circle</span>
-                  <span className="text-[#444444] text-sm">Testes de cross-browsing e dispositivos móveis</span>
+                <li className="flex items-start text-sm text-gray-700">
+                  <CheckCircle2 className="w-5 h-5 text-[#869878] mr-3 flex-shrink-0 mt-0.5" />
+                  <span>Testes de carga para lançamentos</span>
                 </li>
-                <li className="flex items-start">
-                  <span className="material-symbols-outlined text-[#2F4F2F] mr-2 text-lg">check_circle</span>
-                  <span className="text-[#444444] text-sm">Verificação de entregabilidade de e-mails/webhooks</span>
+                <li className="flex items-start text-sm text-gray-700">
+                  <CheckCircle2 className="w-5 h-5 text-[#869878] mr-3 flex-shrink-0 mt-0.5" />
+                  <span>Verificação de entregabilidade de e-mails</span>
                 </li>
               </ul>
+              <div className="mt-auto pt-4 border-t border-gray-100">
+                <button onClick={() => onNavigate('services')} className="text-[#2F4F2F] font-semibold text-sm flex items-center group-hover:text-[#869878] transition-colors">
+                  Saber mais <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                </button>
+              </div>
             </div>
 
             {/* Card 02 - Startups */}
-            <div className="bg-white p-8 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.05)] border border-gray-100">
-              <div className="flex items-center mb-4">
-                <span className="material-symbols-outlined text-4xl text-[#2F4F2F] mr-3">dashboard</span>
+            <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col h-full group">
+              <div className="w-14 h-14 bg-[#F0F4EF] rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <LayoutGrid className="w-8 h-8 text-[#2F4F2F]" />
               </div>
-              <h4 className="text-xl font-bold text-[#2F4F2F] mb-2">Startups e Software Houses</h4>
-              <p className="text-[#444444] font-bold mb-3">Entregue funcionalidades, não bugs.</p>
-              <p className="text-[#444444] mb-6">Aumente a velocidade do seu time de desenvolvimento sem sacrificar a estabilidade do produto.</p>
-              <ul className="space-y-3">
-                <li className="flex items-start">
-                  <span className="material-symbols-outlined text-[#2F4F2F] mr-2 text-lg">check_circle</span>
-                  <span className="text-[#444444] text-sm">Testes de Regressão automatizados e manuais</span>
+              <h4 className="text-xl font-bold text-[#2F4F2F] mb-2">Startups & Software Houses</h4>
+              <p className="text-sm font-semibold text-[#869878] mb-4">Entregue funcionalidades, não bugs.</p>
+              <p className="text-gray-600 mb-8 text-sm leading-relaxed flex-grow">
+                Aumente a velocidade do seu time de desenvolvimento. Eu cuido da estabilidade para que seus devs foquem em criar novas features.
+              </p>
+              <ul className="space-y-3 mb-8">
+                <li className="flex items-start text-sm text-gray-700">
+                  <CheckCircle2 className="w-5 h-5 text-[#869878] mr-3 flex-shrink-0 mt-0.5" />
+                  <span>Testes de Regressão e E2E</span>
                 </li>
-                <li className="flex items-start">
-                  <span className="material-symbols-outlined text-[#2F4F2F] mr-2 text-lg">check_circle</span>
-                  <span className="text-[#444444] text-sm">Relatórios detalhados de bugs com evidências</span>
+                <li className="flex items-start text-sm text-gray-700">
+                  <CheckCircle2 className="w-5 h-5 text-[#869878] mr-3 flex-shrink-0 mt-0.5" />
+                  <span>Relatórios de bugs com logs e evidências</span>
                 </li>
-                <li className="flex items-start">
-                  <span className="material-symbols-outlined text-[#2F4F2F] mr-2 text-lg">check_circle</span>
-                  <span className="text-[#444444] text-sm">Testes de API e integração de sistemas</span>
+                <li className="flex items-start text-sm text-gray-700">
+                  <CheckCircle2 className="w-5 h-5 text-[#869878] mr-3 flex-shrink-0 mt-0.5" />
+                  <span>Testes de API e integração</span>
                 </li>
-                <li className="flex items-start">
-                  <span className="material-symbols-outlined text-[#2F4F2F] mr-2 text-lg">check_circle</span>
-                  <span className="text-[#444444] text-sm">Consultoria em processos de QA e Shift-left testing</span>
+                <li className="flex items-start text-sm text-gray-700">
+                  <CheckCircle2 className="w-5 h-5 text-[#869878] mr-3 flex-shrink-0 mt-0.5" />
+                  <span>Implementação de cultura de QA (Shift-left)</span>
                 </li>
               </ul>
+              <div className="mt-auto pt-4 border-t border-gray-100">
+                <button onClick={() => onNavigate('services')} className="text-[#2F4F2F] font-semibold text-sm flex items-center group-hover:text-[#869878] transition-colors">
+                  Saber mais <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                </button>
+              </div>
+            </div>
+
+            {/* Card 03 - Empreendedores */}
+            <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col h-full group">
+              <div className="w-14 h-14 bg-[#F0F4EF] rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Lightbulb className="w-8 h-8 text-[#2F4F2F]" />
+              </div>
+              <h4 className="text-xl font-bold text-[#2F4F2F] mb-2">Empreendedores & MVPs</h4>
+              <p className="text-sm font-semibold text-[#869878] mb-4">Sua ideia é incrível. A execução também precisa ser.</p>
+              <p className="text-gray-600 mb-8 text-sm leading-relaxed flex-grow">
+                A primeira impressão é a que fica. Valide seu MVP com qualidade profissional para conquistar seus primeiros clientes e investidores sem falhas amadoras.
+              </p>
+              <ul className="space-y-3 mb-8">
+                <li className="flex items-start text-sm text-gray-700">
+                  <CheckCircle2 className="w-5 h-5 text-[#869878] mr-3 flex-shrink-0 mt-0.5" />
+                  <span>Validação de usabilidade crítica</span>
+                </li>
+                <li className="flex items-start text-sm text-gray-700">
+                  <CheckCircle2 className="w-5 h-5 text-[#869878] mr-3 flex-shrink-0 mt-0.5" />
+                  <span>Garantia de funcionamento Mobile/Desktop</span>
+                </li>
+                <li className="flex items-start text-sm text-gray-700">
+                  <CheckCircle2 className="w-5 h-5 text-[#869878] mr-3 flex-shrink-0 mt-0.5" />
+                  <span>Feedback de UX focado em retenção</span>
+                </li>
+                <li className="flex items-start text-sm text-gray-700">
+                  <CheckCircle2 className="w-5 h-5 text-[#869878] mr-3 flex-shrink-0 mt-0.5" />
+                  <span>Prevenção de erros críticos no lançamento</span>
+                </li>
+              </ul>
+              <div className="mt-auto pt-4 border-t border-gray-100">
+                <button onClick={() => onNavigate('services')} className="text-[#2F4F2F] font-semibold text-sm flex items-center group-hover:text-[#869878] transition-colors">
+                  Saber mais <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -251,12 +315,6 @@ export const HomeScreen: React.FC<{ onNavigate: (view: string) => void }> = ({ o
                 <path d="M11.571 11.571H0V0h11.571v11.571zM24 11.571H12.429V0H24v11.571zM11.571 24H0V12.429h11.571V24zM24 24H12.429V12.429H24V24z"/>
               </svg>
               <span className="text-sm text-[#444444]">Jira</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <svg className="w-10 h-10 text-[#869878] mb-2" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 0L1.5 6v12L12 24l10.5-6V6L12 0zm0 3.196L18.804 7.5 12 11.804 5.196 7.5 12 3.196zM4.5 9.402l6 3.402v6.794l-6-3.402V9.402zm15 0v6.794l-6 3.402v-6.794l6-3.402z"/>
-              </svg>
-              <span className="text-sm text-[#444444]">Lighthouse</span>
             </div>
             <div className="flex flex-col items-center">
               <svg className="w-10 h-10 text-[#869878] mb-2" viewBox="0 0 24 24" fill="currentColor">
