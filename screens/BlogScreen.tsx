@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Article } from '../types';
 import articleCover from '../artigo_o_que_faz_qa.png';
 import coverExploratory from '../testes_exploratorios.png';
+import coverSuccessful from '../artigo_bem_sucedidos.png';
 
 const articles: Article[] = [
   {
@@ -25,6 +26,17 @@ const articles: Article[] = [
     excerpt: 'O texto apresenta uma visão completa e prática sobre testes exploratórios, explicando o que são, por que existem e como podem ser executados de forma mais estruturada e profissional.',
     image: coverExploratory,
     link: 'https://medium.com/revista-tspi/uma-jornada-de-descobertas-e-aprendizado-com-testes-explorat%C3%B3rios-87f1a11b21ad'
+  },
+  {
+    id: '3',
+    category: 'Carreira',
+    color: 'bg-emerald-600',
+    date: '26 Jan, 2026',
+    readTime: '6 min leitura',
+    title: 'Pessoas de grande sucesso fazem 3 coisas que muitas negligenciam, afirma especialista em carreiras de Harvard.',
+    excerpt: 'Descubra os três hábitos essenciais que diferenciam profissionais altamente bem-sucedidos, segundo uma especialista em carreiras da Harvard Business School.',
+    image: coverSuccessful,
+    link: 'https://www.cnbc.com/2026/01/26/highly-successful-people-do-these-things-that-many-neglect-says-harvard-career-expert.html'
   }
 ];
 

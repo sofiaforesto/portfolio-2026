@@ -170,6 +170,149 @@ export const HomeScreen: React.FC<{ onNavigate: (view: string) => void }> = ({ o
         </div>
       </main>
 
+      {/* Soluções Especializadas Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-5xl mx-auto px-6">
+          <h3 className="text-3xl font-bold text-center text-gray-900 mb-12">Soluções Especializadas</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Card 01 - Agências */}
+            <div className="bg-white p-8 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.05)] border border-gray-100">
+              <div className="flex items-center mb-4">
+                <span className="material-symbols-outlined text-4xl text-[#2F4F2F] mr-3">rocket_launch</span>
+              </div>
+              <h4 className="text-xl font-bold text-[#2F4F2F] mb-2">Agências de Lançamento e Infoprodutores</h4>
+              <p className="text-[#444444] font-bold mb-3">Sua página de captura está perdendo leads?</p>
+              <p className="text-[#444444] mb-6">Proteja seu investimento em tráfego pago garantindo que cada etapa do funil funcione perfeitamente.</p>
+              <ul className="space-y-3">
+                <li className="flex items-start">
+                  <span className="material-symbols-outlined text-[#2F4F2F] mr-2 text-lg">check_circle</span>
+                  <span className="text-[#444444] text-sm">Validação completa do fluxo de cadastro e checkout</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="material-symbols-outlined text-[#2F4F2F] mr-2 text-lg">check_circle</span>
+                  <span className="text-[#444444] text-sm">Checklist rigoroso de tracking (GA4, GTM, Pixel)</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="material-symbols-outlined text-[#2F4F2F] mr-2 text-lg">check_circle</span>
+                  <span className="text-[#444444] text-sm">Testes de cross-browsing e dispositivos móveis</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="material-symbols-outlined text-[#2F4F2F] mr-2 text-lg">check_circle</span>
+                  <span className="text-[#444444] text-sm">Verificação de entregabilidade de e-mails/webhooks</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Card 02 - Startups */}
+            <div className="bg-white p-8 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.05)] border border-gray-100">
+              <div className="flex items-center mb-4">
+                <span className="material-symbols-outlined text-4xl text-[#2F4F2F] mr-3">dashboard</span>
+              </div>
+              <h4 className="text-xl font-bold text-[#2F4F2F] mb-2">Startups e Software Houses</h4>
+              <p className="text-[#444444] font-bold mb-3">Entregue funcionalidades, não bugs.</p>
+              <p className="text-[#444444] mb-6">Aumente a velocidade do seu time de desenvolvimento sem sacrificar a estabilidade do produto.</p>
+              <ul className="space-y-3">
+                <li className="flex items-start">
+                  <span className="material-symbols-outlined text-[#2F4F2F] mr-2 text-lg">check_circle</span>
+                  <span className="text-[#444444] text-sm">Testes de Regressão automatizados e manuais</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="material-symbols-outlined text-[#2F4F2F] mr-2 text-lg">check_circle</span>
+                  <span className="text-[#444444] text-sm">Relatórios detalhados de bugs com evidências</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="material-symbols-outlined text-[#2F4F2F] mr-2 text-lg">check_circle</span>
+                  <span className="text-[#444444] text-sm">Testes de API e integração de sistemas</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="material-symbols-outlined text-[#2F4F2F] mr-2 text-lg">check_circle</span>
+                  <span className="text-[#444444] text-sm">Consultoria em processos de QA e Shift-left testing</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Tech Stack Section */}
+      <section className="py-12 bg-white">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <p className="text-xs font-semibold tracking-widest text-[#869878] uppercase mb-2">Tech Stack</p>
+          <h3 className="text-2xl font-bold text-gray-900 mb-10">Ferramentas e Tecnologias</h3>
+          <div className="flex flex-wrap justify-center gap-8 md:gap-12">
+            <div className="flex flex-col items-center">
+              <svg className="w-10 h-10 text-[#869878] mb-2" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-.857 17.571h-2.57V12h2.57v5.571zm0-7.714h-2.57V7.286h2.57v2.571zm6.857 7.714h-2.571V9.857h2.571v7.714zm0-9.857h-2.571V5.143h2.571v2.571z"/>
+              </svg>
+              <span className="text-sm text-[#444444]">Cypress</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <svg className="w-10 h-10 text-[#869878] mb-2" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M11.571 11.571H0V0h11.571v11.571zM24 11.571H12.429V0H24v11.571zM11.571 24H0V12.429h11.571V24zM24 24H12.429V12.429H24V24z"/>
+              </svg>
+              <span className="text-sm text-[#444444]">Jira</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <svg className="w-10 h-10 text-[#869878] mb-2" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0L1.5 6v12L12 24l10.5-6V6L12 0zm0 3.196L18.804 7.5 12 11.804 5.196 7.5 12 3.196zM4.5 9.402l6 3.402v6.794l-6-3.402V9.402zm15 0v6.794l-6 3.402v-6.794l6-3.402z"/>
+              </svg>
+              <span className="text-sm text-[#444444]">Lighthouse</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <svg className="w-10 h-10 text-[#869878] mb-2" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M13.527.099C6.955-.744.942 3.9.099 10.473c-.843 6.572 3.8 12.584 10.373 13.428 6.573.843 12.587-3.801 13.428-10.374C24.744 6.955 20.101.942 13.527.099zm2.471 7.485a.855.855 0 0 0-.593.25l-4.453 4.453-.307-.307-.643-.643 4.453-4.453a.854.854 0 0 0 .25-.593.854.854 0 0 0-.25-.593l1.398-1.398a2.56 2.56 0 0 1 .593 1.645c0 .615-.21 1.177-.593 1.645a.854.854 0 0 0 .593.25c.224 0 .435-.088.593-.25l.307.307-1.398 1.398a.855.855 0 0 0-.593.25z"/>
+              </svg>
+              <span className="text-sm text-[#444444]">Postman</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <svg className="w-10 h-10 text-[#869878] mb-2" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 14.957L12 19.594l-5.894-4.637L12 4.406l5.894 10.551zM12 16.297L8.553 13.5 12 7.703l3.447 5.797L12 16.297z"/>
+              </svg>
+              <span className="text-sm text-[#444444]">GitHub Actions</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <svg className="w-10 h-10 text-[#869878] mb-2" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M11.354 0L2.545 5.08v9.84l3.399 1.96v-9.62l5.41-3.12 5.41 3.12v9.62l3.399-1.96V5.08L11.354 0zm0 6.68L7.955 8.64v3.92l3.399 1.96 3.399-1.96V8.64l-3.399-1.96zm0 2.27l1.7.98v1.96l-1.7.98-1.7-.98V9.93l1.7-.98zM2.545 16.92l8.809 5.08 8.809-5.08v-3.92l-3.399 1.96v1.96l-5.41 3.12-5.41-3.12v-1.96l-3.399-1.96v3.92z"/>
+              </svg>
+              <span className="text-sm text-[#444444]">Selenium</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA de Alto Impacto Section */}
+      <section className="py-12 bg-gray-50">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="bg-gradient-to-r from-[#2F4F2F] to-[#3d6b3d] rounded-3xl p-8 md:p-12 text-white">
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-4">
+              Quanto custa para o seu negócio um lançamento falhado por causa de um link quebrado?
+            </h2>
+            <p className="text-center text-white/90 mb-8 max-w-2xl mx-auto">
+              A qualidade não é um custo, é uma apólice de seguro para o seu lucro. Bugs encontrados em produção custam até 100x mais do que se fossem detectados durante o desenvolvimento.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4 md:gap-8 mb-8">
+              <div className="flex items-center bg-white/10 rounded-full px-4 py-2">
+                <span className="material-symbols-outlined mr-2">trending_down</span>
+                <span className="text-sm">Redução de Churn & Perda de Leads</span>
+              </div>
+              <div className="flex items-center bg-white/10 rounded-full px-4 py-2">
+                <span className="material-symbols-outlined mr-2">shield</span>
+                <span className="text-sm">Aumento de Confiança na Entrega</span>
+              </div>
+            </div>
+            <div className="text-center">
+              <button
+                onClick={() => onNavigate('services')}
+                className="bg-white text-[#2F4F2F] font-bold px-8 py-4 rounded-full hover:bg-gray-100 transition-colors inline-flex items-center"
+              >
+                Proteger meu faturamento
+                <span className="material-symbols-outlined ml-2">arrow_forward</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Feedback Section */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-4xl mx-auto px-6">
