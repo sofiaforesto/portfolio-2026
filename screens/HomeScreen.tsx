@@ -8,6 +8,12 @@ export const HomeScreen: React.FC<{ onNavigate: (view: string) => void }> = ({ o
       name: "Jorge",
       role: "Desenvolvedor FullStack Pleno",
       initial: "J"
+    },
+    {
+      quote: "Contei com a ajuda da Sofia em um momento crucial. Ela desenvolveu o site rapidamente, realizou todos os testes necessários e viabilizou o lançamento no prazo. Foi uma experiência muito positiva trabalhar com alguém tão dedicada e comprometida.",
+      name: "Sarah",
+      role: "Médica",
+      initial: "S"
     }
   ];
 

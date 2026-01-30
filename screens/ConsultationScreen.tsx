@@ -1,4 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
+
+// Diamond colors - sophisticated blues, silvers, and champagne
+const DIAMOND_COLORS = [
+  { color: '#60a5fa', shadow: 'rgba(96, 165, 250, 0.8)' },  // sky blue
+  { color: '#e2e8f0', shadow: 'rgba(226, 232, 240, 0.9)' }, // silver
+  { color: '#93c5fd', shadow: 'rgba(147, 197, 253, 0.8)' }, // light blue
+  { color: '#f8fafc', shadow: 'rgba(248, 250, 252, 0.9)' }, // crystal white
+  { color: '#d4af37', shadow: 'rgba(212, 175, 55, 0.7)' },  // champagne gold
+  { color: '#cbd5e1', shadow: 'rgba(203, 213, 225, 0.8)' }, // platinum
+  { color: '#3b82f6', shadow: 'rgba(59, 130, 246, 0.8)' },  // sapphire blue
+  { color: '#bfdbfe', shadow: 'rgba(191, 219, 254, 0.8)' }, // ice blue
+];
+
+// Sparkle SVG component with diamond color support
+const Sparkle: React.FC<{
+  size: number;
+  opacity: number;
+  scale: number;
+  colorIndex?: number;
+  isDiamond?: boolean;
+}> = ({ size, opacity, scale, colorIndex = 0, isDiamond = false }) => {
+  const diamondColor = DIAMOND_COLORS[colorIndex % DIAMOND_COLORS.length];
+
+  return (
+    <svg
+      className="absolute transition-all duration-150 ease-out pointer-events-none"
+      style={{
+        width: size,
+        height: size,
+        opacity,
+        transform: `scale(${scale})`,
+        filter: opacity > 0.5
+          ? `drop-shadow(0 0 ${size/2}px ${isDiamond ? diamondColor.shadow : 'rgba(59, 130, 246, 0.8)'})`
+          : 'none',
+        color: isDiamond ? diamondColor.color : 'currentColor'
+      }}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+    >
+      <path d="M12 0L13.5 8.5L22 10L13.5 11.5L12 20L10.5 11.5L2 10L10.5 8.5L12 0Z"/>
+    </svg>
+  );
+};
+
+// CSS for diamond card animations
+const DiamondStyles = () => (
+  <style>{`
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.85; transform: scale(1.02); }
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+  `}</style>
+);
 
 export const ConsultationScreen: React.FC = () => {
   const [selectedInterest, setSelectedInterest] = useState<string>('');
@@ -7,6 +64,48 @@ export const ConsultationScreen: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [details, setDetails] = useState<string>('');
   const [errors, setErrors] = useState<{[key: string]: string}>({});
+  const [diamondMousePos, setDiamondMousePos] = useState<{ x: number; y: number } | null>(null);
+
+  // Shimmer animation state
+  const [shimmerPosition, setShimmerPosition] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShimmerPosition(prev => (prev + 1) % 200);
+    }, 30);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Generate sparkle positions around the card border with color indices
+  const sparkles = useMemo(() => {
+    const positions: Array<{ id: number; x: number; y: number; size: number; colorIndex: number }> = [];
+    let id = 0;
+
+    // Top edge - dense constellation
+    for (let i = 0; i <= 100; i += 4) {
+      positions.push({ id: id++, x: i, y: -3, size: Math.random() * 8 + 4, colorIndex: id });
+    }
+    // Bottom edge
+    for (let i = 0; i <= 100; i += 4) {
+      positions.push({ id: id++, x: i, y: 103, size: Math.random() * 8 + 4, colorIndex: id });
+    }
+    // Left edge
+    for (let i = 5; i <= 95; i += 4) {
+      positions.push({ id: id++, x: -3, y: i, size: Math.random() * 8 + 4, colorIndex: id });
+    }
+    // Right edge
+    for (let i = 5; i <= 95; i += 4) {
+      positions.push({ id: id++, x: 103, y: i, size: Math.random() * 8 + 4, colorIndex: id });
+    }
+
+    // Add extra sparkles at corners (bigger)
+    positions.push({ id: id++, x: -4, y: -4, size: 14, colorIndex: 0 });
+    positions.push({ id: id++, x: 104, y: -4, size: 12, colorIndex: 2 });
+    positions.push({ id: id++, x: -4, y: 104, size: 12, colorIndex: 4 });
+    positions.push({ id: id++, x: 104, y: 104, size: 14, colorIndex: 6 });
+
+    return positions;
+  }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -14,6 +113,41 @@ export const ConsultationScreen: React.FC = () => {
     const y = e.clientY - rect.top;
     e.currentTarget.style.setProperty('--x', `${x}px`);
     e.currentTarget.style.setProperty('--y', `${y}px`);
+  };
+
+  const handleDiamondMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setDiamondMousePos({ x, y });
+  };
+
+  const handleDiamondMouseLeave = () => {
+    setDiamondMousePos(null);
+  };
+
+  const getSparkleStyle = (sparkle: { x: number; y: number; size: number }) => {
+    if (!diamondMousePos) {
+      return { opacity: 0.15, scale: 0.6 };
+    }
+
+    const distance = Math.sqrt(
+      Math.pow(sparkle.x - diamondMousePos.x, 2) +
+      Math.pow(sparkle.y - diamondMousePos.y, 2)
+    );
+
+    // Spotlight radius - sparkles within this range light up
+    const spotlightRadius = 25;
+
+    if (distance < spotlightRadius) {
+      const intensity = 1 - (distance / spotlightRadius);
+      return {
+        opacity: 0.3 + intensity * 0.7,
+        scale: 0.8 + intensity * 0.6
+      };
+    }
+
+    return { opacity: 0.1, scale: 0.5 };
   };
 
   const handlePlanSelect = (plan: string) => {
@@ -61,6 +195,7 @@ Detalhes do Projeto: ${details || 'Não informado'}`;
 
   return (
     <div className="min-h-screen bg-[#F5F5F5] font-sans text-[#444444] antialiased pb-12">
+      <DiamondStyles />
       {/* Header */}
       <header className="sticky top-0 z-50 flex items-center justify-center px-6 py-5 bg-[#F5F5F5] border-b border-gray-200">
         <div className="flex items-center gap-2">
@@ -91,13 +226,13 @@ Detalhes do Projeto: ${details || 'Não informado'}`;
 
           <div className="space-y-6">
             {/* Card 1: Prata */}
-            <article 
-              className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm relative overflow-hidden group hover:shadow-lg transition-all duration-300"
-              style={{ background: 'radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(47, 79, 47, 0.1) 0%, transparent 50%)' }}
+            <article
+              className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm relative overflow-hidden group hover:shadow-[0_20px_50px_rgba(47,79,47,0.15)] hover:-translate-y-2 hover:scale-[1.02] hover:border-[#869878]/50 transition-all duration-300 ease-out"
+              style={{ background: 'radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(134, 152, 120, 0.15) 0%, transparent 60%)' }}
               onMouseMove={handleMouseMove}
             >
               <div className="flex justify-between items-start mb-4">
-                <span className="inline-block py-1 px-3 rounded-md bg-gray-100 text-xs font-bold uppercase tracking-wider text-[#444444]">Prata</span>
+                <span className="inline-block py-1 px-3 rounded-md bg-gray-100 text-xs font-bold uppercase tracking-wider text-[#444444] group-hover:bg-[#869878] group-hover:text-white transition-colors duration-300">Prata</span>
                 <span className="text-lg font-bold text-[#2F4F2F]">R$ 800 - 1.200</span>
               </div>
               <h3 className="font-bold text-xl text-[#2F4F2F] mb-4">Validação Essencial</h3>
@@ -127,20 +262,20 @@ Detalhes do Projeto: ${details || 'Não informado'}`;
             </article>
 
             {/* Card 2: Ouro (Destaque) */}
-            <article 
-              className="bg-[#2F4F2F] p-6 rounded-xl text-white shadow-lg relative overflow-hidden group hover:shadow-xl transition-all duration-300"
-              style={{ background: 'radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255, 215, 0, 0.2) 0%, transparent 50%)' }}
+            <article
+              className="bg-white p-6 rounded-xl shadow-lg relative overflow-hidden group hover:shadow-[0_25px_60px_rgba(255,215,0,0.3)] hover:-translate-y-3 hover:scale-[1.02] ring-2 ring-amber-200 hover:ring-amber-400 transition-all duration-300 ease-out"
+              style={{ background: 'radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255, 215, 0, 0.15) 0%, white 50%)' }}
               onMouseMove={handleMouseMove}
             >
               <div className="flex justify-between items-start mb-4">
-                <span className="inline-block py-1 px-3 rounded-md bg-white text-xs font-bold uppercase tracking-wider text-[#2F4F2F]">Ouro</span>
-                <span className="text-2xl font-bold text-[#2F4F2F]">R$ 1.500 - 2.500</span>
+                <span className="inline-block py-1 px-3 rounded-md bg-amber-400 text-xs font-bold uppercase tracking-wider text-white group-hover:bg-amber-500 transition-colors duration-300">Ouro</span>
+                <span className="text-2xl font-bold text-amber-600">R$ 1.500 - 2.500</span>
               </div>
               <h3 className="font-bold text-2xl text-[#2F4F2F] mb-4">Blindagem Profissional</h3>
               <p className="text-[#444444] mb-4 leading-relaxed">
                 A escolha favorita para produtos em crescimento. O equilíbrio perfeito entre custo e profundidade. Aqui, nós não apenas testamos o que deveria funcionar, mas caçamos ativamente onde o sistema pode falhar. É a garantia de que seu produto suporta o uso real, erros de usuário e diferentes dispositivos.
               </p>
-              <p className="text-sm text-[#444444] mb-4"><strong>Tempo de atuação:</strong> 1 semana (Ciclo Fechado).</p>
+              <p className="text-sm text-[#444444] mb-4"><strong className="text-[#2F4F2F]">Tempo de atuação:</strong> 1 semana (Ciclo Fechado).</p>
               <ul className="space-y-3 mb-8">
                 {[
                   'Cobertura Total (Prata inclusa): Mais profundidade nos testes.',
@@ -149,13 +284,13 @@ Detalhes do Projeto: ${details || 'Não informado'}`;
                   'Evidências Ricas: Relatório visual com vídeos/GIFs dos bugs e re-teste após correção.'
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3">
-                    <span className="material-symbols-outlined text-[#869878] text-lg mt-0.5">verified</span>
+                    <span className="material-symbols-outlined text-amber-500 text-lg mt-0.5">verified</span>
                     <span className="text-sm text-[#444444]">{item}</span>
                   </li>
                 ))}
               </ul>
-              <button 
-                className="w-full py-3 rounded-lg bg-white text-[#2F4F2F] font-bold hover:bg-gray-100 transition-colors flex items-center justify-center gap-2"
+              <button
+                className="w-full py-3 rounded-lg bg-amber-400 text-white font-bold hover:bg-amber-500 transition-colors flex items-center justify-center gap-2"
                 onClick={() => handlePlanSelect('ouro')}
               >
                 <span>Selecionar Ouro</span>
@@ -163,47 +298,216 @@ Detalhes do Projeto: ${details || 'Não informado'}`;
               </button>
             </article>
 
-            {/* Card 3: Diamante */}
-            <div className="relative group">
-              <article 
-                className="bg-[#2F4F2F] p-6 rounded-xl text-white relative overflow-hidden hover:scale-[1.03] transition-all duration-500 ease-out"
-                style={{ 
-                  background: 'radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(100, 149, 237, 0.4) 0%, transparent 70%)',
-                  boxShadow: '0px 10px 30px rgba(47, 79, 47, 0.10)'
+            {/* Card 3: Diamante - Premium with prismatic effects */}
+            <div
+              className="relative py-8 px-4"
+              onMouseMove={handleDiamondMouseMove}
+              onMouseLeave={handleDiamondMouseLeave}
+            >
+              {/* Reactive Sparkles - Prismatic constellation around the border */}
+              {sparkles.map((sparkle) => {
+                const style = getSparkleStyle(sparkle);
+                return (
+                  <div
+                    key={sparkle.id}
+                    className="absolute pointer-events-none"
+                    style={{
+                      left: `${sparkle.x}%`,
+                      top: `${sparkle.y}%`,
+                      transform: 'translate(-50%, -50%)'
+                    }}
+                  >
+                    <Sparkle
+                      size={sparkle.size}
+                      opacity={style.opacity}
+                      scale={style.scale}
+                      colorIndex={sparkle.colorIndex}
+                      isDiamond={true}
+                    />
+                  </div>
+                );
+              })}
+
+              {/* Diamond spotlight glow that follows mouse */}
+              {diamondMousePos && (
+                <div
+                  className="absolute inset-0 rounded-2xl pointer-events-none transition-opacity duration-200"
+                  style={{
+                    background: `
+                      radial-gradient(circle at ${diamondMousePos.x}% ${diamondMousePos.y}%, rgba(59, 130, 246, 0.2) 0%, transparent 25%),
+                      radial-gradient(circle at ${diamondMousePos.x + 5}% ${diamondMousePos.y}%, rgba(212, 175, 55, 0.12) 0%, transparent 30%),
+                      radial-gradient(circle at ${diamondMousePos.x - 5}% ${diamondMousePos.y}%, rgba(148, 197, 253, 0.15) 0%, transparent 30%)
+                    `
+                  }}
+                />
+              )}
+
+              {/* Outer diamond glow ring - blues, silvers, gold */}
+              <div
+                className="absolute inset-0 rounded-2xl pointer-events-none"
+                style={{
+                  background: diamondMousePos
+                    ? `conic-gradient(from ${shimmerPosition * 1.8}deg at 50% 50%,
+                        rgba(59, 130, 246, 0.3),
+                        rgba(148, 197, 253, 0.25),
+                        rgba(226, 232, 240, 0.3),
+                        rgba(212, 175, 55, 0.2),
+                        rgba(203, 213, 225, 0.25),
+                        rgba(96, 165, 250, 0.3),
+                        rgba(59, 130, 246, 0.3))`
+                    : `conic-gradient(from ${shimmerPosition * 1.8}deg at 50% 50%,
+                        rgba(59, 130, 246, 0.15),
+                        rgba(148, 197, 253, 0.12),
+                        rgba(226, 232, 240, 0.15),
+                        rgba(212, 175, 55, 0.1),
+                        rgba(203, 213, 225, 0.12),
+                        rgba(96, 165, 250, 0.15),
+                        rgba(59, 130, 246, 0.15))`,
+                  filter: 'blur(20px)',
+                  transform: 'scale(1.02)'
                 }}
-                onMouseMove={handleMouseMove}
+              />
+
+              <article
+                className="relative rounded-2xl overflow-hidden hover:-translate-y-3 transition-all duration-500 ease-out group"
+                style={{
+                  background: `
+                    linear-gradient(135deg, rgba(255,255,255,0.97) 0%, rgba(248,250,252,0.98) 50%, rgba(255,255,255,0.97) 100%)
+                  `,
+                  boxShadow: diamondMousePos
+                    ? `0 30px 80px rgba(59, 130, 246, 0.3),
+                       0 15px 40px rgba(212, 175, 55, 0.15),
+                       0 5px 15px rgba(148, 197, 253, 0.2),
+                       inset 0 1px 0 rgba(255,255,255,0.8)`
+                    : `0 25px 60px rgba(59, 130, 246, 0.18),
+                       0 10px 30px rgba(0, 0, 0, 0.08),
+                       inset 0 1px 0 rgba(255,255,255,0.6)`
+                }}
               >
-                <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out pointer-events-none" style={{ boxShadow: 'inset 0 0 0 1px rgba(100, 149, 237, 0.2), 0 10px 25px rgba(0, 0, 0, 0.15), 0 0 30px 5px rgba(100, 149, 237, 0.3)' }}></div>
-              <div className="flex justify-between items-start mb-4">
-                <span className="inline-block py-1 px-3 rounded-md bg-[#869878] text-xs font-bold uppercase tracking-wider text-white">Diamante</span>
-                <span className="text-xl font-bold text-[#2F4F2F]">R$ 3.000 - 4.500</span>
-              </div>
-              <h3 className="font-bold text-xl text-[#2F4F2F] mb-4">Engenharia de Qualidade</h3>
-              <p className="text-[#444444] mb-4 leading-relaxed">
-                Para quem joga o jogo do longo prazo e escalabilidade. Mais que testes, entregamos maturidade de software. Este pacote resolve problemas estruturais, organiza sua base de conhecimento e prepara seu produto para escalar com inteligência (IA) e automação. É uma consultoria completa de QA.
-              </p>
-              <p className="text-sm text-[#444444] mb-4"><strong>Tempo de atuação:</strong> 2 semanas (Sprint Completa).</p>
-              <ul className="space-y-3 mb-8">
-                {[
-                  'Gestão de Processos: Organização da metodologia de qualidade do projeto.',
-                  'Dados e IA: Validação e alimentação técnica de bancos de dados ou modelos de IA.',
-                  'Legado Técnico: Documentação das regras de negócio e estrutura da plataforma.',
-                  'Roadmap de Automação: Preparação e scripts para testes automatizados de fluxos vitais.'
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <span className="material-symbols-outlined text-[#869878] text-lg mt-0.5">verified</span>
-                    <span className="text-sm text-[#444444]">{item}</span>
-                  </li>
-                ))}
-              </ul>
-              <button 
-                className="w-full py-3 rounded-lg bg-white text-[#2F4F2F] font-bold hover:bg-gray-100 transition-colors flex items-center justify-center gap-2"
-                onClick={() => handlePlanSelect('diamante')}
-              >
-                <span>Selecionar Diamante</span>
-                <span className="material-symbols-outlined">arrow_forward</span>
-              </button>
-            </article>
+                {/* Animated diamond border - blues, silvers, gold */}
+                <div
+                  className="absolute inset-0 rounded-2xl pointer-events-none"
+                  style={{
+                    padding: '3px',
+                    background: `conic-gradient(from ${shimmerPosition * 1.8}deg at 50% 50%,
+                      #3b82f6, #93c5fd, #e2e8f0, #d4af37, #cbd5e1, #60a5fa, #3b82f6)`,
+                    WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                    WebkitMaskComposite: 'xor',
+                    maskComposite: 'exclude'
+                  }}
+                />
+
+                {/* Shimmer sweep effect */}
+                <div
+                  className="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl"
+                  style={{
+                    background: `linear-gradient(
+                      105deg,
+                      transparent ${shimmerPosition - 30}%,
+                      rgba(255, 255, 255, 0.4) ${shimmerPosition - 10}%,
+                      rgba(255, 255, 255, 0.8) ${shimmerPosition}%,
+                      rgba(255, 255, 255, 0.4) ${shimmerPosition + 10}%,
+                      transparent ${shimmerPosition + 30}%
+                    )`
+                  }}
+                />
+
+                {/* Crystal facet pattern overlay */}
+                <div
+                  className="absolute inset-0 pointer-events-none opacity-[0.03] rounded-2xl"
+                  style={{
+                    backgroundImage: `
+                      linear-gradient(60deg, transparent 40%, rgba(59,130,246,0.5) 45%, transparent 50%),
+                      linear-gradient(-60deg, transparent 40%, rgba(212,175,55,0.4) 45%, transparent 50%),
+                      linear-gradient(120deg, transparent 40%, rgba(148,197,253,0.5) 45%, transparent 50%)
+                    `,
+                    backgroundSize: '30px 30px'
+                  }}
+                />
+
+                {/* Premium badge with gradient and glow */}
+                <div
+                  className="absolute top-0 right-0 text-white text-[10px] font-bold px-5 py-2 rounded-bl-xl tracking-wider z-20"
+                  style={{
+                    background: 'linear-gradient(135deg, #1e3a5f 0%, #2563eb 50%, #1e40af 100%)',
+                    boxShadow: '0 4px 15px rgba(37, 99, 235, 0.4), inset 0 1px 0 rgba(255,255,255,0.2)',
+                    animation: 'pulse 2s ease-in-out infinite'
+                  }}
+                >
+                  <span className="relative z-10">MAIS COMPLETO</span>
+                </div>
+
+                <div className="relative z-10 p-6">
+                  <div className="flex justify-between items-start mb-4 mt-2">
+                    <span
+                      className="inline-block py-1.5 px-4 rounded-lg text-xs font-bold uppercase tracking-wider text-white"
+                      style={{
+                        background: 'linear-gradient(135deg, #1e3a5f 0%, #2563eb 50%, #1e40af 100%)',
+                        boxShadow: '0 4px 12px rgba(37, 99, 235, 0.4)'
+                      }}
+                    >
+                      Diamante
+                    </span>
+                    <span
+                      className="text-xl font-bold bg-clip-text text-transparent"
+                      style={{
+                        backgroundImage: 'linear-gradient(135deg, #1e3a5f 0%, #2563eb 50%, #1e40af 100%)'
+                      }}
+                    >
+                      R$ 3.000 - 4.500
+                    </span>
+                  </div>
+                  <h3
+                    className="font-bold text-2xl mb-4 bg-clip-text text-transparent"
+                    style={{
+                      backgroundImage: 'linear-gradient(135deg, #1e3a5f 0%, #1d4ed8 50%, #2563eb 100%)'
+                    }}
+                  >
+                    Engenharia de Qualidade
+                  </h3>
+                  <p className="text-[#444444] mb-4 leading-relaxed">
+                    Para quem joga o jogo do longo prazo e escalabilidade. Mais que testes, entregamos maturidade de software. Este pacote resolve problemas estruturais, organiza sua base de conhecimento e prepara seu produto para escalar com inteligência (IA) e automação. É uma consultoria completa de QA.
+                  </p>
+                  <p className="text-sm text-[#444444] mb-4">
+                    <strong
+                      className="bg-clip-text text-transparent"
+                      style={{ backgroundImage: 'linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%)' }}
+                    >
+                      Tempo de atuação:
+                    </strong>{' '}
+                    2 semanas (Sprint Completa).
+                  </p>
+                  <ul className="space-y-3 mb-8">
+                    {[
+                      'Gestão de Processos: Organização da metodologia de qualidade do projeto.',
+                      'Dados e IA: Validação e alimentação técnica de bancos de dados ou modelos de IA.',
+                      'Legado Técnico: Documentação das regras de negócio e estrutura da plataforma.',
+                      'Roadmap de Automação: Preparação e scripts para testes automatizados de fluxos vitais.'
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <span
+                          className="material-symbols-outlined text-lg mt-0.5"
+                          style={{ color: '#60a5fa' }}
+                        >
+                          diamond
+                        </span>
+                        <span className="text-sm text-[#444444]">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <button
+                    className="w-full py-4 rounded-xl text-white font-bold transition-all duration-300 flex items-center justify-center gap-2 group-hover:scale-[1.02] group-hover:shadow-xl"
+                    style={{
+                      background: 'linear-gradient(135deg, #1e3a5f 0%, #2563eb 50%, #1e40af 100%)',
+                      boxShadow: '0 8px 25px rgba(37, 99, 235, 0.4), inset 0 1px 0 rgba(255,255,255,0.2)'
+                    }}
+                    onClick={() => handlePlanSelect('diamante')}
+                  >
+                    <span>Selecionar Diamante</span>
+                    <span className="material-symbols-outlined">arrow_forward</span>
+                  </button>
+                </div>
+              </article>
             </div>
           </div>
         </section>
