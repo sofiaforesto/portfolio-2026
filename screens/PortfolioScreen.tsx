@@ -302,9 +302,7 @@ export const PortfolioScreen: React.FC = () => {
                   {[
                     { name: 'Jira', desc: 'Gerenciamento de bugs' },
                     { name: 'TestRail', desc: 'Planejamento de testes' },
-                    { name: 'BrowserStack', desc: 'Testes cross-browser' },
-                    { name: 'Charles Proxy', desc: 'Análise de tráfego' },
-                    { name: 'Figma', desc: 'Revisão de designs' }
+                    { name: 'BrowserStack', desc: 'Testes cross-browser' }
                   ].map((tool, idx) => (
                     <div key={idx} className="flex items-center space-x-3">
                       <div className="w-8 h-8 bg-green-100 rounded flex items-center justify-center">
@@ -329,7 +327,6 @@ export const PortfolioScreen: React.FC = () => {
                     { name: 'GitHub Actions', desc: 'Pipelines automatizados' },
                     { name: 'Jenkins', desc: 'Servidor de automação' },
                     { name: 'Docker', desc: 'Containerização' },
-                    { name: 'AWS CodePipeline', desc: 'Deploy na nuvem' },
                     { name: 'SonarQube', desc: 'Análise de código' }
                   ].map((tool, idx) => (
                     <div key={idx} className="flex items-center space-x-3">
@@ -352,7 +349,6 @@ export const PortfolioScreen: React.FC = () => {
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Monitoramento</h3>
                 <div className="space-y-3">
                   {[
-                    { name: 'Sentry', desc: 'Rastreamento de erros' },
                     { name: 'DataDog', desc: 'Monitoramento de performance' },
                     { name: 'New Relic', desc: 'APM e observabilidade' },
                     { name: 'Google Analytics', desc: 'Análise de uso' },
