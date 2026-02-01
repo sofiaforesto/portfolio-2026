@@ -86,6 +86,7 @@ export const ConsultationScreen: React.FC<ConsultationScreenProps> = ({ selected
   const [selectedPlan, setSelectedPlan] = useState<string>('');
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
+  const [phone, setPhone] = useState<string>('');
   const [details, setDetails] = useState<string>('');
   const [errors, setErrors] = useState<{[key: string]: string}>({});
   const [diamondMousePos, setDiamondMousePos] = useState<{ x: number; y: number } | null>(null);
@@ -208,10 +209,15 @@ export const ConsultationScreen: React.FC<ConsultationScreenProps> = ({ selected
 
   const validateForm = () => {
     const newErrors: {[key: string]: string} = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!selectedPlan) newErrors.plan = 'Selecione um plano antes de enviar.';
     if (!name.trim()) newErrors.name = 'Nome completo é obrigatório.';
-    if (!email.trim()) newErrors.email = 'E-mail é obrigatório.';
+    if (!email.trim()) {
+      newErrors.email = 'E-mail é obrigatório.';
+    } else if (!emailRegex.test(email)) {
+      newErrors.email = 'Formato de e-mail inválido.';
+    }
     if (!selectedInterest) newErrors.interest = 'Selecione pelo menos um interesse.';
 
     setErrors(newErrors);
@@ -230,6 +236,7 @@ ${profileLabel ? `Perfil: ${profileLabel}` : ''}
 Pacote de Interesse: ${selectedPlan.toUpperCase()}
 Nome: ${name}
 E-mail: ${email}
+Telefone: ${phone || 'Não informado'}
 Interesse: ${selectedInterest}
 Detalhes do Projeto: ${details || 'Não informado'}`;
 
@@ -601,6 +608,18 @@ Detalhes do Projeto: ${details || 'Não informado'}`;
                   required
                 />
                 {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+              </div>
+              <div>
+                <label className="block text-sm font-semibold text-[#444444] mb-2">
+                  Telefone <span className="text-gray-400 font-normal">(opcional)</span>
+                </label>
+                <input
+                  className="w-full bg-[#F9F9F9] border-0 rounded-lg px-4 py-3 text-[#444444] placeholder-gray-400 focus:ring-2 focus:ring-[#869878] transition-all"
+                  placeholder="(11) 99999-9999"
+                  type="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
               </div>
             </div>
             <div>
