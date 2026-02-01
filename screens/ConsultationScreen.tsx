@@ -239,7 +239,6 @@ Detalhes do Projeto: ${details || 'Não informado'}`;
               <p className="text-[#444444] mb-4 leading-relaxed">
                 Para lançamentos ágeis e sem riscos desnecessários. Ideal para MVPs, Landing Pages ou funcionalidades pontuais que precisam ir ao ar com segurança. Garantimos que o fluxo principal funciona perfeitamente, evitando que seu usuário encontre bloqueios críticos.
               </p>
-              <p className="text-sm text-[#444444] mb-4"><strong>Tempo de atuação:</strong> 3 a 5 dias.</p>
               <ul className="space-y-3 mb-6">
                 {[
                   'Blindagem do Caminho Feliz: Teste completo do fluxo principal de uso.',
@@ -275,7 +274,6 @@ Detalhes do Projeto: ${details || 'Não informado'}`;
               <p className="text-[#444444] mb-4 leading-relaxed">
                 A escolha favorita para produtos em crescimento. O equilíbrio perfeito entre custo e profundidade. Aqui, nós não apenas testamos o que deveria funcionar, mas caçamos ativamente onde o sistema pode falhar. É a garantia de que seu produto suporta o uso real, erros de usuário e diferentes dispositivos.
               </p>
-              <p className="text-sm text-[#444444] mb-4"><strong className="text-[#2F4F2F]">Tempo de atuação:</strong> 1 semana (Ciclo Fechado).</p>
               <ul className="space-y-3 mb-8">
                 {[
                   'Cobertura Total (Prata inclusa): Mais profundidade nos testes.',
@@ -467,15 +465,6 @@ Detalhes do Projeto: ${details || 'Não informado'}`;
                   </h3>
                   <p className="text-[#444444] mb-4 leading-relaxed">
                     Para quem joga o jogo do longo prazo e escalabilidade. Mais que testes, entregamos maturidade de software. Este pacote resolve problemas estruturais, organiza sua base de conhecimento e prepara seu produto para escalar com inteligência (IA) e automação. É uma consultoria completa de QA.
-                  </p>
-                  <p className="text-sm text-[#444444] mb-4">
-                    <strong
-                      className="bg-clip-text text-transparent"
-                      style={{ backgroundImage: 'linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%)' }}
-                    >
-                      Tempo de atuação:
-                    </strong>{' '}
-                    2 semanas (Sprint Completa).
                   </p>
                   <ul className="space-y-3 mb-8">
                     {[
