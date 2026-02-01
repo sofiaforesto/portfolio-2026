@@ -14,6 +14,12 @@ export const HomeScreen: React.FC<{ onNavigate: (view: string) => void }> = ({ o
       name: "Sarah",
       role: "Médica",
       initial: "S"
+    },
+    {
+      quote: "O trabalho da Sofia é maravilhoso!",
+      name: "Paulo",
+      role: "CTO",
+      initial: "P"
     }
   ];
 
