@@ -1,4 +1,24 @@
 import React, { useState, useMemo, useEffect } from 'react';
+import type { ProfileType } from '../App';
+
+// Profile data for pre-filling the form
+const PROFILE_DATA: Record<NonNullable<ProfileType>, { label: string; interest: string; placeholder: string }> = {
+  agencias: {
+    label: 'Agências & Infoprodutores',
+    interest: 'Web App',
+    placeholder: 'Descreva seu funil de vendas, landing pages ou sistemas de checkout que precisam de validação...'
+  },
+  startups: {
+    label: 'Startups & Software Houses',
+    interest: 'API',
+    placeholder: 'Descreva seu produto, principais funcionalidades e onde você precisa de maior cobertura de testes...'
+  },
+  empreendedores: {
+    label: 'Empreendedores & MVPs',
+    interest: 'Consultoria',
+    placeholder: 'Descreva sua ideia de MVP, o estágio atual do projeto e seus objetivos de lançamento...'
+  }
+};
 
 // Diamond colors - sophisticated blues, silvers, and champagne
 const DIAMOND_COLORS = [
@@ -57,7 +77,11 @@ const DiamondStyles = () => (
   `}</style>
 );
 
-export const ConsultationScreen: React.FC = () => {
+interface ConsultationScreenProps {
+  selectedProfile?: ProfileType;
+}
+
+export const ConsultationScreen: React.FC<ConsultationScreenProps> = ({ selectedProfile }) => {
   const [selectedInterest, setSelectedInterest] = useState<string>('');
   const [selectedPlan, setSelectedPlan] = useState<string>('');
   const [name, setName] = useState<string>('');
@@ -65,6 +89,8 @@ export const ConsultationScreen: React.FC = () => {
   const [details, setDetails] = useState<string>('');
   const [errors, setErrors] = useState<{[key: string]: string}>({});
   const [diamondMousePos, setDiamondMousePos] = useState<{ x: number; y: number } | null>(null);
+  const [profileLabel, setProfileLabel] = useState<string>('');
+  const [detailsPlaceholder, setDetailsPlaceholder] = useState<string>('Descreva brevemente seu projeto...');
 
   // Shimmer animation state
   const [shimmerPosition, setShimmerPosition] = useState(0);
@@ -75,6 +101,23 @@ export const ConsultationScreen: React.FC = () => {
     }, 30);
     return () => clearInterval(interval);
   }, []);
+
+  // Pre-fill form based on selected profile
+  useEffect(() => {
+    if (selectedProfile && PROFILE_DATA[selectedProfile]) {
+      const profileData = PROFILE_DATA[selectedProfile];
+      setSelectedInterest(profileData.interest);
+      setProfileLabel(profileData.label);
+      setDetailsPlaceholder(profileData.placeholder);
+      // Scroll to form after a short delay
+      setTimeout(() => {
+        const formSection = document.getElementById('consultation-form');
+        if (formSection) {
+          formSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 300);
+    }
+  }, [selectedProfile]);
 
   // Generate sparkle positions around the card border with color indices
   const sparkles = useMemo(() => {
@@ -183,6 +226,7 @@ export const ConsultationScreen: React.FC = () => {
     const subject = 'Novo Lead de Consultoria';
     const body = `Novo Lead de Consultoria
 
+${profileLabel ? `Perfil: ${profileLabel}` : ''}
 Pacote de Interesse: ${selectedPlan.toUpperCase()}
 Nome: ${name}
 E-mail: ${email}
@@ -510,18 +554,27 @@ Detalhes do Projeto: ${details || 'Não informado'}`;
             </p>
           </div>
           <form className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-6" onSubmit={handleSubmit}>
-            {selectedPlan && (
-              <div className="flex items-center justify-between">
-                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[#2F4F2F] text-white">
-                  PACOTE ESCOLHIDO: {selectedPlan.toUpperCase()}
-                </span>
-                <button 
-                  type="button"
-                  onClick={clearSelectedPlan}
-                  className="text-gray-400 hover:text-gray-600"
-                >
-                  <span className="material-symbols-outlined text-sm">close</span>
-                </button>
+            {(selectedPlan || profileLabel) && (
+              <div className="flex flex-wrap items-center gap-2">
+                {profileLabel && (
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[#869878] text-white">
+                    PERFIL: {profileLabel.toUpperCase()}
+                  </span>
+                )}
+                {selectedPlan && (
+                  <div className="flex items-center gap-2">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[#2F4F2F] text-white">
+                      PACOTE: {selectedPlan.toUpperCase()}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={clearSelectedPlan}
+                      className="text-gray-400 hover:text-gray-600"
+                    >
+                      <span className="material-symbols-outlined text-sm">close</span>
+                    </button>
+                  </div>
+                )}
               </div>
             )}
             <div className="grid grid-cols-1 gap-4">
@@ -580,7 +633,7 @@ Detalhes do Projeto: ${details || 'Não informado'}`;
               <textarea
                 className="w-full bg-[#F9F9F9] border-0 rounded-lg px-4 py-3 text-[#444444] placeholder-gray-400 focus:ring-2 focus:ring-[#869878] transition-all resize-none"
                 rows={4}
-                placeholder="Descreva brevemente seu projeto..."
+                placeholder={detailsPlaceholder}
                 value={details}
                 onChange={(e) => setDetails(e.target.value)}
               ></textarea>

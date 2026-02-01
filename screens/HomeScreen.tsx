@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Rocket, LayoutGrid, Lightbulb, CheckCircle2, ArrowRight } from 'lucide-react';
+import type { ProfileType } from '../App';
 
-export const HomeScreen: React.FC<{ onNavigate: (view: string) => void }> = ({ onNavigate }) => {
+export const HomeScreen: React.FC<{ onNavigate: (view: string, profile?: ProfileType) => void }> = ({ onNavigate }) => {
   const testimonials = [
     {
       quote: "A Sofia como profissional é muito proativa, entusiasta e muita curiosa cobre os detalhes dos entregáveis, muito prestativa, interessada e solícita. Foi um prazer trabalhar com ela!",
@@ -231,7 +232,7 @@ export const HomeScreen: React.FC<{ onNavigate: (view: string) => void }> = ({ o
                 </li>
               </ul>
               <div className="mt-auto pt-4 border-t border-gray-100">
-                <button onClick={() => onNavigate('services')} className="text-[#2F4F2F] font-semibold text-sm flex items-center group-hover:text-[#869878] transition-colors">
+                <button onClick={() => onNavigate('services', 'agencias')} className="text-[#2F4F2F] font-semibold text-sm flex items-center group-hover:text-[#869878] transition-colors">
                   Saber mais <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
@@ -266,7 +267,7 @@ export const HomeScreen: React.FC<{ onNavigate: (view: string) => void }> = ({ o
                 </li>
               </ul>
               <div className="mt-auto pt-4 border-t border-gray-100">
-                <button onClick={() => onNavigate('services')} className="text-[#2F4F2F] font-semibold text-sm flex items-center group-hover:text-[#869878] transition-colors">
+                <button onClick={() => onNavigate('services', 'startups')} className="text-[#2F4F2F] font-semibold text-sm flex items-center group-hover:text-[#869878] transition-colors">
                   Saber mais <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
@@ -301,7 +302,7 @@ export const HomeScreen: React.FC<{ onNavigate: (view: string) => void }> = ({ o
                 </li>
               </ul>
               <div className="mt-auto pt-4 border-t border-gray-100">
-                <button onClick={() => onNavigate('services')} className="text-[#2F4F2F] font-semibold text-sm flex items-center group-hover:text-[#869878] transition-colors">
+                <button onClick={() => onNavigate('services', 'empreendedores')} className="text-[#2F4F2F] font-semibold text-sm flex items-center group-hover:text-[#869878] transition-colors">
                   Saber mais <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>

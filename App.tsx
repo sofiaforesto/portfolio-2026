@@ -4,13 +4,19 @@ import { BlogScreen } from './screens/BlogScreen';
 import { ConsultationScreen } from './screens/ConsultationScreen';
 import { PortfolioScreen } from './screens/PortfolioScreen';
 
+export type ProfileType = 'agencias' | 'startups' | 'empreendedores' | null;
+
 export default function App() {
   const [currentView, setCurrentView] = useState<'home' | 'articles' | 'tests' | 'services'>('home');
+  const [selectedProfile, setSelectedProfile] = useState<ProfileType>(null);
 
-  const handleNavigate = (view: string) => {
+  const handleNavigate = (view: string, profile?: ProfileType) => {
     if (view === 'articles') setCurrentView('articles');
     else if (view === 'tests') setCurrentView('tests');
-    else if (view === 'services') setCurrentView('services');
+    else if (view === 'services') {
+      setCurrentView('services');
+      setSelectedProfile(profile || null);
+    }
     else setCurrentView('home');
   };
 
@@ -31,7 +37,7 @@ export default function App() {
 
       {currentView === 'articles' && <BlogScreen />}
       {currentView === 'tests' && <PortfolioScreen />}
-      {currentView === 'services' && <ConsultationScreen />}
+      {currentView === 'services' && <ConsultationScreen selectedProfile={selectedProfile} />}
     </div>
   );
 }
